@@ -1,17 +1,34 @@
-# localfix
+# LocalFix – Local Household Services Marketplace
 
-A new Flutter project.
+## Project Overview
+LocalFix is a Flutter-based application concept designed to connect customers with local service providers for household services such as plumbing, electrical repairs, carpentry, and cleaning.
+
+## Problem Statement
+Finding reliable local service providers can be difficult. LocalFix aims to make discovering and accessing household services easier through a single platform.
+
+## Objectives
+- Help customers discover household services.
+- Display service and provider information.
+- Simplify the process of finding suitable local professionals.
+- Provide a convenient platform for customers and service providers.
+
+## Technology Stack
+- **Frontend:** Flutter
+- **Programming Language:** Dart
+- **Version Control:** Git and GitHub
+- **Development Environment:** Visual Studio Code
+
+## Project Status
+**Week 1 – Initial Setup**
+
+The Flutter starter project has been created and tested in Google Chrome. Wireframes, navigation flow, and further application development are part of the ongoing project.
 
 ## Getting Started
+1. Install Flutter and Dart.
+2. Clone or download this repository.
+3. Open the project folder in Visual Studio Code.
+4. Run `flutter pub get`.
+5. Run `flutter run -d chrome` to launch the starter application in Chrome.
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Team Project
+LocalFix is a team project focused on planning and developing a local household services marketplace.

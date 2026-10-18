@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'service_listing_screen.dart';
+import 'home_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,11 +16,11 @@ class MyApp extends StatelessWidget {
       title: 'LocalFix',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.blue,
+          seedColor: const Color(0xFF1769D2),
         ),
         useMaterial3: true,
       ),
-      home: const ServiceListingScreen(),
+      home: const HomeScreen(),
     );
   }
 }

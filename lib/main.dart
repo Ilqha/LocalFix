@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
-import 'home_screen.dart';
+import 'login_screen.dart';
+import 'profile_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,11 +17,14 @@ class MyApp extends StatelessWidget {
       title: 'LocalFix',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF1769D2),
+          seedColor: const Color(0xFF008C8C),
         ),
         useMaterial3: true,
       ),
-      home: const HomeScreen(),
+      home: const LoginScreen(),
+      routes: {
+        '/profile': (context) => const ProfileScreen(),
+      },
     );
   }
 }

@@ -1,5 +1,8 @@
 
 import 'package:flutter/material.dart';
+import 'home_screen.dart';
+import 'service_details_screen.dart';
+import 'profile_screen.dart';
 
 class ServiceListingScreen extends StatefulWidget {
   const ServiceListingScreen({super.key});
@@ -72,21 +75,36 @@ class _ServiceListingScreenState extends State<ServiceListingScreen> {
 
   List<Map<String, dynamic>> get filteredProviders {
     List<Map<String, dynamic>> result = providers.where((provider) {
-      final query = _searchController.text.toLowerCase();
-      return provider['name'].toString().toLowerCase().contains(query) ||
-          provider['service'].toString().toLowerCase().contains(query) ||
-          provider['description'].toString().toLowerCase().contains(query);
+      final query = _searchController.text.trim().toLowerCase();
+
+      return provider['name']
+              .toString()
+              .toLowerCase()
+              .contains(query) ||
+          provider['service']
+              .toString()
+              .toLowerCase()
+              .contains(query) ||
+          provider['description']
+              .toString()
+              .toLowerCase()
+              .contains(query);
     }).toList();
 
     if (selectedFilter == 'Top rated') {
-      result.sort((a, b) =>
-          double.parse(b['rating']).compareTo(double.parse(a['rating'])));
+      result.sort(
+        (a, b) => double.parse(b['rating'])
+            .compareTo(double.parse(a['rating'])),
+      );
     } else if (selectedFilter == 'Nearest') {
-      result.sort((a, b) =>
-          double.parse(a['distance'].split(' ')[0])
-              .compareTo(double.parse(b['distance'].split(' ')[0])));
+      result.sort(
+        (a, b) => double.parse(a['distance'].split(' ')[0])
+            .compareTo(double.parse(b['distance'].split(' ')[0])),
+      );
     } else if (selectedFilter == 'Today') {
-      result = result.where((p) => p['available'] == 'Today').toList();
+      result = result
+          .where((provider) => provider['available'] == 'Today')
+          .toList();
     }
 
     return result;
@@ -99,20 +117,27 @@ class _ServiceListingScreenState extends State<ServiceListingScreen> {
   }
 
   void showProviderProfile(Map<String, dynamic> provider) {
-    showDialog<void>(
-      context: context,
-      builder: (dialogContext) => AlertDialog(
-        title: Text(provider['name']),
-        content: const Text(
-          'Person 4 is building the Provider Profile screen. '
-          'This button will be connected when their screen is ready.',
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(dialogContext),
-            child: const Text('OK'),
-          ),
-        ],
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => ServiceDetailsScreen(provider: provider),
+      ),
+    );
+  }
+
+  void _goHome() {
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (_) => const HomeScreen()),
+      (route) => false,
+    );
+  }
+
+  void _goToProfile() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => const ProfileScreen(),
       ),
     );
   }
@@ -120,16 +145,16 @@ class _ServiceListingScreenState extends State<ServiceListingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F7FC),
+      backgroundColor: const Color(0xFFE5F4FA),
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        foregroundColor: const Color(0xFF17345B),
+        backgroundColor: const Color(0xFF12345A),
+        foregroundColor: Colors.white,
         elevation: 0,
         title: const Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'LOCALFIX',
+              'LocalFix',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 letterSpacing: 1,
@@ -167,13 +192,15 @@ class _ServiceListingScreenState extends State<ServiceListingScreen> {
               child: Wrap(
                 spacing: 8,
                 children: ['All', 'Top rated', 'Nearest', 'Today']
-                    .map((filter) => ChoiceChip(
-                          label: Text(filter),
-                          selected: selectedFilter == filter,
-                          onSelected: (_) {
-                            setState(() => selectedFilter = filter);
-                          },
-                        ))
+                    .map(
+                      (filter) => ChoiceChip(
+                        label: Text(filter),
+                        selected: selectedFilter == filter,
+                        onSelected: (_) {
+                          setState(() => selectedFilter = filter);
+                        },
+                      ),
+                    )
                     .toList(),
               ),
             ),
@@ -187,7 +214,7 @@ class _ServiceListingScreenState extends State<ServiceListingScreen> {
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF17345B),
+                        color: Color(0xFF12345A),
                       ),
                     ),
                   ),
@@ -197,7 +224,9 @@ class _ServiceListingScreenState extends State<ServiceListingScreen> {
             ),
             Expanded(
               child: filteredProviders.isEmpty
-                  ? const Center(child: Text('No matching providers found.'))
+                  ? const Center(
+                      child: Text('No matching providers found.'),
+                    )
                   : ListView.builder(
                       padding: const EdgeInsets.fromLTRB(16, 4, 16, 16),
                       itemCount: filteredProviders.length,
@@ -236,7 +265,7 @@ class _ServiceListingScreenState extends State<ServiceListingScreen> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            provider['name'],
+                                            provider['name'].toString(),
                                             style: const TextStyle(
                                               fontWeight: FontWeight.bold,
                                               fontSize: 16,
@@ -251,7 +280,7 @@ class _ServiceListingScreenState extends State<ServiceListingScreen> {
                                             ),
                                           ),
                                           Text(
-                                            provider['description'],
+                                            provider['description'].toString(),
                                             style: const TextStyle(
                                               fontSize: 12,
                                               color: Colors.black54,
@@ -265,11 +294,13 @@ class _ServiceListingScreenState extends State<ServiceListingScreen> {
                                                 color: Colors.amber,
                                                 size: 17,
                                               ),
-                                              Text(
-                                                ' ${provider['rating']} '
-                                                '(${provider['reviews']} reviews)',
-                                                style: const TextStyle(
-                                                  fontSize: 12,
+                                              Expanded(
+                                                child: Text(
+                                                  ' ${provider['rating']} '
+                                                  '(${provider['reviews']} reviews)',
+                                                  style: const TextStyle(
+                                                    fontSize: 12,
+                                                  ),
                                                 ),
                                               ),
                                             ],
@@ -283,7 +314,7 @@ class _ServiceListingScreenState extends State<ServiceListingScreen> {
                                           CrossAxisAlignment.end,
                                       children: [
                                         Text(
-                                          provider['available'],
+                                          provider['available'].toString(),
                                           style: const TextStyle(
                                             color: Colors.green,
                                             fontSize: 11,
@@ -295,7 +326,7 @@ class _ServiceListingScreenState extends State<ServiceListingScreen> {
                                           'From ${provider['price']}',
                                           style: const TextStyle(
                                             fontWeight: FontWeight.bold,
-                                            color: Color(0xFF17345B),
+                                            color: Color(0xFF12345A),
                                           ),
                                         ),
                                       ],
@@ -305,10 +336,10 @@ class _ServiceListingScreenState extends State<ServiceListingScreen> {
                                 const SizedBox(height: 10),
                                 Row(
                                   children: [
-                                    if (provider['verified'])
+                                    if (provider['verified'] == true)
                                       const Expanded(
                                         child: Text(
-                                          '✓ Verified profile',
+                                          '✓ Sample verified profile',
                                           style: TextStyle(
                                             color: Colors.green,
                                             fontSize: 12,
@@ -318,7 +349,7 @@ class _ServiceListingScreenState extends State<ServiceListingScreen> {
                                     else
                                       const Spacer(),
                                     Text(
-                                      provider['distance'],
+                                      provider['distance'].toString(),
                                       style: const TextStyle(
                                         fontSize: 12,
                                         color: Colors.black54,
@@ -350,6 +381,21 @@ class _ServiceListingScreenState extends State<ServiceListingScreen> {
         selectedItemColor: const Color(0xFF2864C8),
         unselectedItemColor: Colors.grey,
         type: BottomNavigationBarType.fixed,
+        onTap: (index) {
+          if (index == 0) {
+            _goHome();
+          } else if (index == 1) {
+            // Already on the Services screen.
+          } else if (index == 2) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Bookings screen will be added later.'),
+              ),
+            );
+          } else if (index == 3) {
+            _goToProfile();
+          }
+        },
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home_outlined),

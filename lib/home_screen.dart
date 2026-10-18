@@ -16,6 +16,7 @@ class HomeScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: const Color(0xFFF5F8FC),
+
       appBar: AppBar(
         backgroundColor: const Color(0xFF12345A),
         foregroundColor: Colors.white,
@@ -24,6 +25,7 @@ class HomeScreen extends StatelessWidget {
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
+
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(18),
@@ -37,7 +39,9 @@ class HomeScreen extends StatelessWidget {
                   fontSize: 14,
                 ),
               ),
+
               const SizedBox(height: 24),
+
               const Text(
                 'What do you need help with?',
                 style: TextStyle(
@@ -46,7 +50,9 @@ class HomeScreen extends StatelessWidget {
                   color: Color(0xFF12345A),
                 ),
               ),
+
               const SizedBox(height: 16),
+
               TextField(
                 onSubmitted: (_) => _openListing(context),
                 decoration: InputDecoration(
@@ -60,7 +66,9 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
               ),
+
               const SizedBox(height: 26),
+
               const Text(
                 'Service Categories',
                 style: TextStyle(
@@ -68,7 +76,9 @@ class HomeScreen extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
+
               const SizedBox(height: 14),
+
               GridView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
@@ -115,7 +125,9 @@ class HomeScreen extends StatelessWidget {
                   );
                 },
               ),
+
               const SizedBox(height: 26),
+
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(18),
@@ -149,6 +161,49 @@ class HomeScreen extends StatelessWidget {
             ],
           ),
         ),
+      ),
+
+      // Bottom navigation bar
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 0,
+        type: BottomNavigationBarType.fixed,
+        selectedItemColor: const Color(0xFF2864C8),
+        unselectedItemColor: Colors.grey,
+        onTap: (index) {
+          if (index == 0) {
+            // Already on Home.
+          } else if (index == 1) {
+            _openListing(context);
+          } else if (index == 2 || index == 3) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(
+                  index == 2
+                      ? 'Bookings screen will be added later.'
+                      : 'Profile screen will be added later.',
+                ),
+              ),
+            );
+          }
+        },
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home_outlined),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.grid_view),
+            label: 'Services',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.calendar_month_outlined),
+            label: 'Bookings',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person_outline),
+            label: 'Profile',
+          ),
+        ],
       ),
     );
   }

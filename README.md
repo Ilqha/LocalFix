@@ -49,6 +49,24 @@ The initial Flutter project has been created and tested successfully in Google C
 
 LocalFix is a team project focused on planning and developing a local household services marketplace. Team members contribute to the app proposal, user journeys, wireframes, and development setup.
 
-## 9. Repository
+## 9. Application Screenshots
 
+The following screenshots show the current LocalFix application interface and its main screens.
+1.Login Screen
+<img width="440" height="608" alt="image" src="https://github.com/user-attachments/assets/9598a77e-6255-48ff-9a1d-08063a695967" />
+
+2.Home Screen
+<img width="1363" height="654" alt="image" src="https://github.com/user-attachments/assets/9f9e4d6f-52e1-4fb3-81b5-3cc0b68630f5" />
+<img width="1366" height="640" alt="image" src="https://github.com/user-attachments/assets/3274caa8-f155-4418-adb7-34cdb3e81d4a" />
+
+3.Service Listing Screen
+<img width="1350" height="655" alt="image" src="https://github.com/user-attachments/assets/baeed2a1-f38e-476c-8206-9241ccb3291b" />
+
+4.Provider Details Screen
+<img width="1365" height="633" alt="image" src="https://github.com/user-attachments/assets/5eb520fd-dbda-47a0-be64-77afcde15d34" />
+
+5.Profile Screen
+<img width="1366" height="637" alt="image" src="https://github.com/user-attachments/assets/26f42e98-746f-4694-a4c0-c12901cfacd1" />
+
+## 10. Repository
 GitHub: https://github.com/Ilqha/LocalFix

@@ -1,5 +1,5 @@
-
 import 'package:flutter/material.dart';
+import 'booking_form_screen.dart';
 import 'login_screen.dart';
 import 'profile_screen.dart';
 
@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp(home: const BookingFormScreen(),
       debugShowCheckedModeBanner: false,
       title: 'LocalFix',
       theme: ThemeData(
@@ -21,9 +21,11 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: const LoginScreen(),
+  
       routes: {
+        '/booking': (context) => const BookingFormScreen(),
         '/profile': (context) => const ProfileScreen(),
+        '/login': (context) => const LoginScreen(),
       },
     );
   }

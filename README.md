@@ -63,10 +63,19 @@ The following screenshots show the current LocalFix application interface and it
 <img width="1350" height="655" alt="image" src="https://github.com/user-attachments/assets/baeed2a1-f38e-476c-8206-9241ccb3291b" />
 
 4.Provider Details Screen
-<img width="1365" height="633" alt="image" src="https://github.com/user-attachments/assets/5eb520fd-dbda-47a0-be64-77afcde15d34" />
+<img width="1892" height="881" alt="1" src="https://github.com/user-attachments/assets/67e4799a-120d-48b7-9f54-316268cd5840" />
+
+<img width="772" height="776" alt="2" src="https://github.com/user-attachments/assets/7ab864d7-4dfb-4886-a153-7ddb32afe74c" />
+
+
+
 
 5.Profile Screen
 <img width="1366" height="637" alt="image" src="https://github.com/user-attachments/assets/26f42e98-746f-4694-a4c0-c12901cfacd1" />
+
+6. Booking Form Screen
+   <img width="1909" height="860" alt="3" src="https://github.com/user-attachments/assets/3ac4ddc7-458b-462e-8aaa-64e7dcca5450" />
+
 
 ## 10. Repository
 GitHub: https://github.com/Ilqha/LocalFix

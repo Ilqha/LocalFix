@@ -1,25 +1,39 @@
-
 import 'package:flutter/material.dart';
 import 'home_screen.dart';
 
+
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
+
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
+
 class _LoginScreenState extends State<LoginScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+
 
   String _selectedRole = 'Customer';
   bool _isLogin = true;
   bool _obscurePassword = true;
 
+
   static const navy = Color(0xFF12345A);
   static const blue = Color(0xFF1769D2);
   static const background = Color(0xFFE5F4FA);
+
+
+  // Demo credentials only. Use real authentication for production.
+  static const customerEmail = 'customer@localfix.com';
+  static const customerPassword = 'Customer123';
+
+
+  static const providerEmail = 'provider@localfix.com';
+  static const providerPassword = 'Provider123';
+
 
   @override
   void dispose() {
@@ -28,31 +42,76 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
+
+  void _showMessage(String message, {bool isError = true}) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: isError ? Colors.red : Colors.green,
+      ),
+    );
+  }
+
+
   void _continueToApp() {
-    if (_emailController.text.trim().isEmpty ||
-        _passwordController.text.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Please enter your email and password.'),
-        ),
+    final email = _emailController.text.trim().toLowerCase();
+    final password = _passwordController.text;
+
+
+    if (email.isEmpty || password.isEmpty) {
+      _showMessage('Please enter your email and password.');
+      return;
+    }
+
+
+    final emailPattern = RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$');
+
+
+    if (!emailPattern.hasMatch(email)) {
+      _showMessage('Please enter a valid email address.');
+      return;
+    }
+
+
+    if (!_isLogin) {
+      _showMessage(
+        'Account registration is not available yet.',
+        isError: false,
       );
       return;
     }
 
-    if (_selectedRole == 'Customer') {
+
+    final isCustomer = email == customerEmail &&
+        password == customerPassword;
+
+
+    final isProvider = email == providerEmail &&
+        password == providerPassword;
+
+
+    if (_selectedRole == 'Customer' && isCustomer) {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (_) => const HomeScreen()),
+        MaterialPageRoute(
+          builder: (_) => const HomeScreen(),
+        ),
       );
-    } else {
+    } else if (_selectedRole == 'Service Provider' &&
+        isProvider) {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
           builder: (_) => const ProviderDashboard(),
         ),
       );
+    } else {
+      _showMessage(
+        'Invalid email or password for the selected role.',
+      );
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -120,9 +179,11 @@ class _LoginScreenState extends State<LoginScreen> {
                           subtitle: 'Find services',
                           icon: Icons.person_outline,
                           selected: _selectedRole == 'Customer',
-                          onTap: () => setState(
-                            () => _selectedRole = 'Customer',
-                          ),
+                          onTap: () {
+                            setState(() {
+                              _selectedRole = 'Customer';
+                            });
+                          },
                         ),
                       ),
                       const SizedBox(width: 12),
@@ -131,10 +192,13 @@ class _LoginScreenState extends State<LoginScreen> {
                           title: 'Service Provider',
                           subtitle: 'Offer services',
                           icon: Icons.handyman_outlined,
-                          selected: _selectedRole == 'Service Provider',
-                          onTap: () => setState(
-                            () => _selectedRole = 'Service Provider',
-                          ),
+                          selected:
+                              _selectedRole == 'Service Provider',
+                          onTap: () {
+                            setState(() {
+                              _selectedRole = 'Service Provider';
+                            });
+                          },
                         ),
                       ),
                     ],
@@ -181,9 +245,11 @@ class _LoginScreenState extends State<LoginScreen> {
                               ? Icons.visibility_outlined
                               : Icons.visibility_off_outlined,
                         ),
-                        onPressed: () => setState(
-                          () => _obscurePassword = !_obscurePassword,
-                        ),
+                        onPressed: () {
+                          setState(() {
+                            _obscurePassword = !_obscurePassword;
+                          });
+                        },
                       ),
                       filled: true,
                       fillColor: Colors.white.withValues(alpha: 0.95),
@@ -225,9 +291,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   const SizedBox(height: 12),
                   TextButton(
-                    onPressed: () => setState(
-                      () => _isLogin = !_isLogin,
-                    ),
+                    onPressed: () {
+                      setState(() {
+                        _isLogin = !_isLogin;
+                      });
+                    },
                     child: Text(
                       _isLogin
                           ? 'New to LocalFix? Create an account'
@@ -243,6 +311,7 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
+
 
   Widget _roleCard({
     required String title,
@@ -297,8 +366,10 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 }
 
+
 class ProviderDashboard extends StatelessWidget {
   const ProviderDashboard({super.key});
+
 
   @override
   Widget build(BuildContext context) {

@@ -105,11 +105,17 @@ class _ProgramListingScreenState extends State<ProgramListingScreen> {
                             ),
                             child: InkWell(
                               borderRadius: BorderRadius.circular(14),
-                              onTap: () => showProviderProfile(
-                                context,
-                                provider,
-                                index + 1,
-                              ),
+                             onTap: () {
+                                 Navigator.push(
+                                 context,
+                                MaterialPageRoute(
+                      builder: (context) => ProgramDetailsScreen(
+                          provider: provider,
+                  rank: index + 1,
+                    ),
+               ),
+                 );
+          },
                               child: Padding(
                                 padding: const EdgeInsets.all(14),
                                 child: Row(
